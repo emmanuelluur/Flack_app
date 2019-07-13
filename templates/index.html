@@ -2,12 +2,12 @@
 {% block main %}
 <section class="row">
     <div class="col-sm-6">
-        <form class = "form">
+        <form class = "form" method="POST" action="{{ url_for('join_user') }}">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" class="form-control" name="username" id="username" required autofocus>
             </div>
-            <button type="button" class="btn btn-outline-success">Join</button>
+            <button type="submit" class="btn btn-outline-success">Join</button>
         </form>
     </div>
 </section>
