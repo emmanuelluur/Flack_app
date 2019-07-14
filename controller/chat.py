@@ -37,8 +37,20 @@ def me(me):
         return redirect(url_for('index'))
     if not (me in users):
         return redirect(url_for('index'))
+    if "room" in session:
+        return  redirect(url_for("chat_room", room = session['room']))
     return render_template("user.html", title='Flack', user=me, rooms=rooms)
 
+@app.route("/rooms/<room>")
+def chat_room(room):
+    if room is None:
+        return  redirect(url_for('me', me = session['user']))
+    if not(room in rooms):
+        return  redirect(url_for('me', me = session['user']))
+    if "room" in session:
+        session.pop('room',None)
+    session['room'] = room
+    return  render_template('chat.html', title = 'Flack', room = room)
 
 @app.route("/create/room", methods=['POST'])
 def create_room():

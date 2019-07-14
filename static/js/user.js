@@ -47,7 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let content = document.getElementById("rooms");
         let roomContent = document.createElement("p");
         let room = document.createTextNode(data['room']);
-        roomContent.appendChild(room);
+        let link = document.createElement("a");
+        link.appendChild(room)
+        link.href=(`/rooms/${data['room']}`)
+        
+        roomContent.appendChild(link);
         content.appendChild(roomContent);
     })
 });
