@@ -1,6 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
     const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     let room = document.getElementById("room").value;
+    //send message
+    document.getElementById("send_message").addEventListener('click', ()=>{
+        let message = document.getElementById("message");
+        socket.emit("message", {
+            'message': message.value,
+            'room': room
+        })
+        message.value = "";
+        message.focus();
+    })
+    socket.on("message", data=> {
+        let li = document.createElement('li');
+        let text = document.createTextNode(`${data['user']} says: ${data['message']}`);
+        li.appendChild(text);
+        document.getElementById('messages').appendChild(li);
+    })
     // join room
     socket.emit('join', {
         "room": room

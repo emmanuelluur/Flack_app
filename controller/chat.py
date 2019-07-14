@@ -10,6 +10,7 @@ socketio = SocketIO(app)
 users = []
 rooms = ['public']
 user_room = []
+history_chat = []
 #routes & controllers
 @app.route("/")
 def index():
@@ -52,7 +53,7 @@ def chat_room(room):
         return redirect(url_for('me', me=session['user']))
     if len(user_room) == 0:
         user_room.append(room)
-    return render_template('chat.html', title='Flack', room=room, rooms=rooms)
+    return render_template('chat.html', title='Flack', room=room, rooms=rooms, history = history_chat)
 
 
 @app.route("/create/room", methods=['POST'])
@@ -82,6 +83,14 @@ def created_room(data):
     message = data['room']
     emit("room_created", {"room": message}, broadcast=True)
 
+@socketio.on("message")
+def message(data):
+    message=data['message']
+    room = data['room']
+    if len(message) > 3:
+        if len(history_chat) < 100:
+            history_chat.append({"message": message, "user": session['user'], "room": room})
+        emit("message", {"message": message, "user": session['user']}, room=room, broadcast=True)
 
 @socketio.on("join")
 def join(data):

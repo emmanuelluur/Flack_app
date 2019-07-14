@@ -21,7 +21,15 @@
 
         <hr>
         <div class="alert alert-primary" id="events"> &nbsp;</div>
-        <div class="alert alert-info chat"></div>
+        <div class="alert alert-info chat">
+            <ul class="list_messages" id="messages">
+                {% for chat in history %}
+                {% if chat['room'] == room %}
+                <li> {{chat['user']}} says: {{ chat['message']}} </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </article>
 </section>
 <form class="fixed-bottom chat_box text-center">
