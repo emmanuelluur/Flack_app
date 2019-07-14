@@ -6,10 +6,28 @@ document.addEventListener("DOMContentLoaded", function () {
         "room": room
     })
     // message to join
-    socket.on("join", data=> {
-        socket.emit("event", {"message" : `${data['user']} join to ${data['room']}`, "room": room });
+    socket.on("join", data => {
+        socket.emit("event", {
+            "message": `${data['user']} join to ${data['room']}`,
+            "room": room
+        });
     })
-    socket.on("event", data=> {
+    socket.on("event", data => {
         document.getElementById("events").innerHTML = data['message'];
+    })
+    //leave
+    socket.on("leave", data => {
+        socket.emit("event", {
+            "message": `${data['user']} left ${data['room']}`,
+            "room": room
+        });
+    })
+    document.getElementById("leave").addEventListener("click", () => {
+        socket.emit('leave', {
+            "room": room
+        })
+        setTimeout(() => {
+            location.assign('/')
+        }, 1000); 
     })
 });
