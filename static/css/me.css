@@ -1,6 +1,20 @@
 .app {
     padding-top: 15px;
 }
+
 .footer {
     background-color: #f5f5f5;
-  }
+}
+
+.chat {
+    height: 300px;
+    overflow: auto;
+}
+.chat_box {
+    padding: 15px;
+    background-color: #f5f5f5;
+}
+
+ul.list_messages {
+    list-style-type: none;
+}

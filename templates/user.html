@@ -6,7 +6,7 @@
         <h5>List Rooms</h5>
         <span id="rooms">
             {% for room in rooms %}
-            <p> {{ room }} </p>
+            <p> <a href="{{ url_for('chat_room', room=room) }}"> {{ room }} </a></p>
             {% endfor %}
         </span>
     </article>
