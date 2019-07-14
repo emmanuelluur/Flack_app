@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
+from controller.chat import *
 
-@app.route("/")
-def index():
-    return "Project 2: TODO"
+if __name__ == "__main__":
+    socketio.run(app,host='0.0.0.0', debug=True)
