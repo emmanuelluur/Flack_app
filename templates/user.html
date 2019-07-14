@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+
+{% block main %}
+<section class="row">
+    <article class="col-sm-3">
+        <h5>List Rooms</h5>
+        {% for room in rooms %}
+        <p> {{ room }} </p>
+        {% endfor %}
+    </article>
+    <article class="col-sm-6">
+        <p>
+            <h3> Welcome {{ user }}! </h3>
+        </p>
+        <hr>
+        <h5>Create Room</h5>
+        <form id="app_room" class="form">
+            <div class="form-group">
+                <label for="room">Room </label>
+                <input type="text" class="form-control"  id="room" name="room" autofocus>
+            </div>
+            <button type="button" class="btn btn-success" id="btn_create">Create</button>
+        </form>
+    </article>
+</section>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename = 'js/methods.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/user.js') }}"></script>
+{% endblock  %}
