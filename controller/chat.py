@@ -50,7 +50,7 @@ def chat_room(room):
     if "room" in session:
         session.pop('room',None)
     session['room'] = room
-    return  render_template('chat.html', title = 'Flack', room = room)
+    return  render_template('chat.html', title = 'Flack', room = room, rooms = rooms)
 
 @app.route("/create/room", methods=['POST'])
 def create_room():
@@ -64,11 +64,17 @@ def create_room():
         return jsonify({"type": "success", "response": "Room Created"})
     return jsonify({})
 
+@app.route("/leave", methods = ['POST'])
+def leave():
+    if request.method == 'POST':
+        session.pop("room",None)
+        return redirect(url_for('me', me = session['user']))
 
 @app.route("/logout")
 def logout():
-    if len(users) > 0:
-        users.remove(session['user'])
+    if "user" in session:
+        if len(users) > 0:
+            users.remove(session['user'])
     session.clear()
     return redirect("/", code=302)
 
@@ -78,6 +84,17 @@ def created_room(data):
     message = data['room']
     emit("room_created", {"room": message}, broadcast=True)
 
+@socketio.on("join")
+def join(data):
+    room = data['room']
+    join_room(room)
+    emit("join", {"room": room, "user": session['user']}, room=room, broadcast=True)
+
+@socketio.on("event")
+def event(data):
+    message = data['message']
+    room = data['room']
+    emit("event", {"message": message, "room": room}, room=room, broadcast=True)
 
 if __name__ == "__main__":
     pass
