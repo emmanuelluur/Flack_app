@@ -4,9 +4,11 @@
 <section class="row">
     <article class="col-sm-3">
         <h5>List Rooms</h5>
-        {% for room in rooms %}
-        <p> {{ room }} </p>
-        {% endfor %}
+        <span id="rooms">
+            {% for room in rooms %}
+            <p> {{ room }} </p>
+            {% endfor %}
+        </span>
     </article>
     <article class="col-sm-6">
         <p>
@@ -17,8 +19,9 @@
         <form id="app_room" class="form">
             <div class="form-group">
                 <label for="room">Room </label>
-                <input type="text" class="form-control"  id="room" name="room" autofocus>
+                <input type="text" class="form-control" id="room" name="room" autofocus>
             </div>
+            <span id="responses"></span>
             <button type="button" class="btn btn-success" id="btn_create">Create</button>
         </form>
     </article>

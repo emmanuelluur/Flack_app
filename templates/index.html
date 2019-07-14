@@ -1,14 +1,22 @@
 {% extends "base/base.html" %}
 {% block main %}
-<section class="row">
-    <div class="col-sm-6">
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">Welcome to Flack!</h1>
+        <p>This is a chat application, please type your username and start to chat</p>
         <form class="form" method="POST" action="{{ url_for('join_user') }}">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" class="form-control" name="username" id="username" required autofocus>
             </div>
-            <button type="submit" class="btn btn-outline-success">Join</button>
+            <button type="submit" class="btn btn-primary btn-block">Join</button>
         </form>
     </div>
-</section>
+</div>
+
+<footer class="footer mt-auto py-3 fixed-bottom text-center">
+    <div class="container">
+        <span class="text-muted">Developed with ♥ by <a href="https://twitter.com/emmanuelluur">emmanuelluur</a></span>
+    </div>
+</footer>
 {% endblock %}
